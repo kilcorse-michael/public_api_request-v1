@@ -9,37 +9,63 @@ $(document.body).append(galleryHTML);
 let xhr = $.getJSON(userAPI, function(jqXHR){
        //loop through array of 12 'employees'
       for(var i = 0; i < 12; i++){
-        //variables defined for use, var keywaord chosen because of no block level scoping
-             var $cardImg = jqXHR.results[i].picture.large;
-             var $name = jqXHR.results[i].name.first +' '+ jqXHR.results[i].name.last;
-             var $email = jqXHR.results[i].email;
-             var $city = jqXHR.results[i].location.city
-             var $state = jqXHR.results[i].location.state;
-             var $phone = jqXHR.results[i].cell;
-             var $street = jqXHR.results[i].location.street;
-             var $post = jqXHR.results[i].location.postcode;
-             var $dob = jqXHR.results[i].dob.date;
+        //variables defined for use, var keyword chosen because of no block level scoping
+        var directObj = {
+             $cardImg : jqXHR.results[i].picture.large,
+             $name : jqXHR.results[i].name.first +' '+ jqXHR.results[i].name.last,
+             $email : jqXHR.results[i].email,
+             $city : jqXHR.results[i].location.city,
+             $state : jqXHR.results[i].location.state,
+             $phone : jqXHR.results[i].cell,
+             $street : jqXHR.results[i].location.street,
+             $post : jqXHR.results[i].location.postcode,
+             $dob : jqXHR.results[i].dob.date,
+           };
              //attempt to alter the $dob so that the time is not present in the modal
             //  const reg = /T\w\w:\w\w:\w\w\w/;
             // $dob.replace(reg, '');
             const cardHTML = `
                          <div class="card">
                              <div class="card-img-container">
-                                 <img class="card-img" src="${$cardImg}" alt="profile picture">
+                                 <img class="card-img" src="${directObj.$cardImg}" alt="profile picture">
                              </div>
                              <div class="card-info-container">
-                                 <h3 id="name" class="card-name cap">${$name}</h3>
-                                 <p class="card-text">${$email}</p>
-                                 <p class="card-text cap">${$city}, ${$state}</p>
+                                 <h3 id="name" class="card-name cap">${directObj.$name}</h3>
+                                 <p class="card-text">${directObj.$email}</p>
+                                 <p class="card-text cap">${directObj.$city}, ${directObj.$state}</p>
+                             </div>
+                             <div id="extra-info" class="extra${i}">
+                             ${directObj.$phone},
+                             ${directObj.$street},
+                             ${directObj.$post},
+                             ${directObj.$dob}
                              </div>
                          </div>
                      `;
           $(`#gallery`).append(cardHTML);
+          $(`.extra${i}`).hide();
     }//end loop
+
+
+
   const $cardDiv = $(`.card`);
   //event listener to trigger modal window
   $cardDiv.click(function(e){
-    let imgSource = e.target.getAttribute(`src`);
+    let imgSource = $(this).find(`img`).prop(`src`);
+    let nameSource = $(this).find(`#name`).prop(`innerText`);
+    let emailSource = $(this).find(`.card-text`).prop(`innerText`);
+    let citySource = $(this).find(`.card-text`).next().prop(`innerText`);
+    let extraInfo = $(this).find(`#extra-info`).prop(`innerText`);
+
+    let extras = extraInfo.split(`,`);
+    let phoneSource = extras[0];
+    let streetSource = extras[1];
+    let postSource = extras[2];
+    let dobSource = extras[3];
+
+    let city = citySource.split(`,`);
+
+    let altDOB = dobSource.split(`T`);
       //dynamic html added for modal creation
       var modHTML =
            `
@@ -48,13 +74,13 @@ let xhr = $.getJSON(userAPI, function(jqXHR){
                     <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
                     <div class="modal-info-container">
                         <img class="modal-img" src=${imgSource} alt="profile picture">
-                        <h3 id="name" class="modal-name cap">${name}</h3>
-                        <p class="modal-text">${$email}</p>
-                        <p class="modal-text cap">${$city}</p>
+                        <h3 id="name" class="modal-name cap">${nameSource}</h3>
+                        <p class="modal-text">${emailSource}</p>
+                        <p class="modal-text cap">${city[0]}</p>
                         <hr>
-                        <p class="modal-text">${$phone}</p>
-                        <p class="modal-text">${$street}, ${$city}, ${$state} ${$post}</p>
-                        <p class="modal-text">Birthday: ${$dob}</p>
+                        <p class="modal-text">${phoneSource}</p>
+                        <p class="modal-text">${streetSource}, ${city[0]}, ${city[1]} ${postSource}</p>
+                        <p class="modal-text">Birthday: ${altDOB[0]}</p>
                     </div>
                 </div>
             `;
