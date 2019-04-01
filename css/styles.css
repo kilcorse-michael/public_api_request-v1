@@ -1,4 +1,4 @@
-/* ===================================== 
+/* =====================================
    Public API Request
 ======================================== */
 
@@ -16,11 +16,13 @@ html, body {
 body {
     font-family: "Nunito", sans-serif;
     text-align: center;
-    background: rgba(235, 235, 235, 0.9);
+    background: lightsalmon;
 }
 
 header {
     padding: 15px 5px 5px;
+		border-bottom: 5px solid grey;
+		background-color: aquamarine;
 }
 
 .header-inner-container {
@@ -29,7 +31,7 @@ header {
 }
 
 header h1 {
-    font-size: 1.25em;
+    font-size: 2em;
     color: rgba(50, 50, 50, 0.9);
     margin-top: 35px;
 }
@@ -41,6 +43,7 @@ header h1 {
     max-width: 20rem;
     transition: .4s ease-out;
     outline: none;
+		box-shadow: 2px 2px grey;
 }
 
 .search-input:active, .search-input:hover, .search-input:focus {
@@ -55,6 +58,7 @@ header h1 {
     border: 1px solid rgba(200, 200, 200, 0.9);
     transition: .4s ease-out;
     outline: none;
+		box-shadow: 2px 2px grey;
 }
 
 .search-submit:active, .search-submit:hover, .search-submit:focus {
@@ -63,7 +67,7 @@ header h1 {
 }
 
 
-/* ===================================== 
+/* =====================================
    Gallery
 ======================================== */
 
@@ -75,8 +79,9 @@ header h1 {
     width: 100%;
     max-width: 1200px;
     margin: auto;
+		background-color: lightsalmon;
 }
-  
+
 .card {
     display: flex;
     flex-direction: row;
@@ -87,21 +92,24 @@ header h1 {
     max-width: 360px;
     margin: 10px 10px 20px;
     padding: 10px;
-    background: rgba(245, 245, 245, 0.9);
+    background: lightblue;
     border-radius: 0.25em;
     border: 1px solid rgba(50, 50, 50, 0.3);
     transition: .4s ease-out;
     overflow: hidden;
+		box-shadow: 10px 10px grey;
 }
 
 .card-img {
     width: 95px;
     margin: 10px 15px auto 10px;
     border-radius: 50%;
+
 }
 
 .card-info-container {
     text-align: left;
+
 }
 
 .card-name {
@@ -120,7 +128,7 @@ header h1 {
 }
 
 
-/* ===================================== 
+/* =====================================
    Modal
 ======================================== */
 
@@ -131,6 +139,7 @@ header h1 {
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.7);
+
 }
 
 .modal {
@@ -140,10 +149,11 @@ header h1 {
     min-height: 415px;
     margin: 10px auto auto;
     padding-bottom: 15px;
-    background: rgba(255, 255, 255, 1);
+    background: lightblue;
     border-radius: 0.25em;
     border: 1px solid rgba(100, 100, 100, 0.3);
     transition: .4s ease-out;
+
 }
 
 .modal-close-btn {
@@ -162,6 +172,7 @@ header h1 {
     width: 150px;
     margin-top: 35px;
     border-radius: 50%;
+		background-color: lightblue;
 }
 
 .modal-name {
@@ -188,9 +199,10 @@ header h1 {
     max-width: 420px;
     padding: 10px 15px 15px;;
     margin: 10px auto auto;
-    background: rgba(255, 255, 255, 1);
+    background: aquamarine;
     border-radius: 0.25em;
     border: 1px solid rgba(100, 100, 100, 0.3);
+		box-shadow: 5px 5px grey;
 }
 
 
@@ -206,13 +218,13 @@ header h1 {
     transition: .4s ease-out;
     outline: none;
   }
-  
 
-/* ===================================== 
+
+/* =====================================
    Media Queries
 ======================================== */
 
-/* ===================================== 
+/* =====================================
    Tablet
 ======================================== */
 
@@ -240,9 +252,9 @@ header h1 {
 }
 
 
-/* ===================================== 
+/* =====================================
    Desktop
-   Hover styles on desktop 
+   Hover styles on desktop
 ======================================== */
 
 @media (min-width: 1024px) {
@@ -253,11 +265,11 @@ header h1 {
     }
 
     .card:hover .card-text {
-        color: rgba(25, 25, 25, 1); 
+        color: rgba(25, 25, 25, 1);
     }
 
     .btn:hover {
         background: rgba(255, 255, 255, 1);
-        color: rgba(25, 25, 25, 1); 
+        color: rgba(25, 25, 25, 1);
     }
 }

@@ -1,15 +1,30 @@
-const userAPI = 'https://randomuser.me/api/?results=12';
+const userAPI = 'https://randomuser.me/api/?results=12&&nat=us';
 //gallery html to be written to the document displaying the 12 'employees'
+
+const searchHTML = `
+      <form action="#" method="get">
+          <input type="search" id="search-input" class="search-input" placeholder="Search...">
+      </form>
+      `;
+$(`.search-container`).append(searchHTML);
 const galleryHTML = `
     <div id="gallery" class="gallery">
     </div>
 `;
+// adding search functionality
+$("#search-input").on("keyup", function() {
+  var value = $(this).val().toLowerCase();
+  $(".card").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  });
+});
+
 $(document.body).append(galleryHTML);
 //begin getJSON
 let xhr = $.getJSON(userAPI, function(jqXHR){
        //loop through array of 12 'employees'
       for(var i = 0; i < 12; i++){
-        //variables defined for use, var keyword chosen because of no block level scoping
+        //object to store values of jqXHR
         var directObj = {
              $cardImg : jqXHR.results[i].picture.large,
              $name : jqXHR.results[i].name.first +' '+ jqXHR.results[i].name.last,
@@ -45,9 +60,6 @@ let xhr = $.getJSON(userAPI, function(jqXHR){
           $(`#gallery`).append(cardHTML);
           $(`.extra${i}`).hide();
     }//end loop
-
-
-
   const $cardDiv = $(`.card`);
   //event listener to trigger modal window
   $cardDiv.click(function(e){
@@ -83,10 +95,11 @@ let xhr = $.getJSON(userAPI, function(jqXHR){
                         <p class="modal-text">Birthday: ${altDOB[0]}</p>
                     </div>
                 </div>
+                </div>
             `;
         $(document.body).append(modHTML);
         //adding functionality to 'X' button
-        $(`button`).click(function(e){
+        $(`.modal-close-btn`).click(function(e){
         $(`.modal-container`).remove();
             });//end X button event listener
       });//end event listener)
