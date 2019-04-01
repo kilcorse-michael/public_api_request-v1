@@ -4,6 +4,7 @@ const userAPI = 'https://randomuser.me/api/?results=12&&nat=us';
 const searchHTML = `
       <form action="#" method="get">
           <input type="search" id="search-input" class="search-input" placeholder="Search...">
+          <span>Press Enter to Search</span>
       </form>
       `;
 $(`.search-container`).append(searchHTML);
@@ -12,11 +13,13 @@ const galleryHTML = `
     </div>
 `;
 // adding search functionality
-$("#search-input").on("keyup", function() {
+$("#search-input").on("keydown", function(e) {
+  if(13 === e.keyCode){
   var value = $(this).val().toLowerCase();
   $(".card").filter(function() {
     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
   });
+ }
 });
 
 $(document.body).append(galleryHTML);
